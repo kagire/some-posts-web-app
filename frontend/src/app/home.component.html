@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:float="http://www.w3.org/1999/xhtml">
+  <div [hidden]="authenticated()">
+    <p>Login to see posts</p>
+  </div>
+
+  <div [hidden]="!authenticated()">
+    <p>Logged in as {{app.authenticatedEmail}}</p>
+    <div>
+      <h1>Posts</h1>
+      <a routerLinkActive="active" routerLink="/home/create">Create post</a>
+    </div>
+    <div *ngFor="let post of posts">
+      <div class="post" id="box">
+        <p>Author: {{post.username}}</p>
+<!--        <img src="data:image/jpeg;base64,{{post.postImages[0].image}}">-->
+        <carousel [width]=300>
+          <ng-container *ngFor="let image of post.postImages">
+            <div class="carousel-cell">
+              <img src="data:image/jpeg;base64,{{image.image}}" alt="{{image.id}}">
+            </div>
+          </ng-container>
+        </carousel>
+        <h5>{{post.post.title}}</h5>
+        <p>{{post.post.text}}</p>
+        <p>Created at: {{post.post.date}}</p>
+      </div>
+    </div>
+  </div>
+</html>
